@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using dnet_rpg.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dnet_rpg.Controllers
@@ -28,6 +29,12 @@ namespace dnet_rpg.Controllers
         public ActionResult<Character> GetCharacter(int id)
         {
             return Ok(characters.FirstOrDefault(c => c.Id == id));
+        }
+
+        [HttpPost("characters")]
+        public ActionResult<List<Character>> CreateCharacter (Character newCharacter) {
+            characters.Add(newCharacter);
+            return Ok(characters);
         }
     }
 }

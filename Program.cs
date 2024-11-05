@@ -1,4 +1,6 @@
 global using dnet_rpg.Models;
+global using dnet_rpg.v1.Services.CharacterService;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
