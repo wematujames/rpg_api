@@ -15,12 +15,12 @@ namespace dnet_rpg.v1.Services.CharacterService
             new Character {Id = 2, Name = "Doe"},
         };
 
-        public List<Character> GetCharacters ()
+        public async Task<List<Character>> GetCharacters ()
         {
             return characters;
         }
 
-        public Character GetCharacter(int id)
+        public async Task<Character> GetCharacter(int id)
         {
             var character = characters.FirstOrDefault(c => c.Id == id);
             
@@ -29,7 +29,7 @@ namespace dnet_rpg.v1.Services.CharacterService
             throw new Exception("Character not found");
         }
 
-        public List<Character> CreateCharacter(Character newCharacter)
+        public async Task<List<Character>> CreateCharacter(Character newCharacter)
         {
             characters.Add(newCharacter);
             return characters;

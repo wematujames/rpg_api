@@ -7,10 +7,10 @@ namespace dnet_rpg.v1.Services.CharacterService
 {
     public interface ICharacterService
     {
-       List<Character> GetCharacters ();
+       Task<List<Character>> GetCharacters ();
        
-       Character GetCharacter (int id);
+       Task<Character> GetCharacter (int id);
 
-       List<Character> CreateCharacter (Character newCharater); 
+       Task<List<Character>> CreateCharacter (Character newCharater); 
     }
 }
