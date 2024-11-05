@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace dnet_rpg.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v1")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] summaries = new string[]
@@ -16,8 +16,8 @@ namespace dnet_rpg.Controllers
             "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-       [HttpGet(Name = "weatherforecast")]
-       public WeatherForecast[] Weatherforecast () {
+       [HttpGet("weatherforecast")]
+       public WeatherForecast[] GetWeatherforecast () {
 
        var forecast =  Enumerable.Range(1, 5).Select(index =>
         new WeatherForecast
