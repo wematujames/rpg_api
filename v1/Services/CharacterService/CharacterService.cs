@@ -15,24 +15,43 @@ namespace dnet_rpg.v1.Services.CharacterService
             new Character {Id = 2, Name = "Doe"},
         };
 
-        public async Task<List<Character>> GetCharacters ()
+        public async Task<ServiceResponse<List<Character>>> GetCharacters ()
         {
-            return characters;
+            var serviceRes = new ServiceResponse<List<Character>>();
+            
+            serviceRes.Data = characters;
+
+            return serviceRes; 
         }
 
-        public async Task<Character> GetCharacter(int id)
+        public async Task<ServiceResponse<Character>> GetCharacter(int id)
         {
+            var serviceRes = new ServiceResponse<Character>();
+
             var character = characters.FirstOrDefault(c => c.Id == id);
             
-            if (character != null) return character;
-            
-            throw new Exception("Character not found");
+            serviceRes.Data = character;
+
+            if (character != null) {
+                return serviceRes;
+            }
+
+            serviceRes.Message = "No character found!";
+            serviceRes.Success = false;
+
+            return serviceRes;
         }
 
-        public async Task<List<Character>> CreateCharacter(Character newCharacter)
+        public async Task<ServiceResponse<List<Character>>> CreateCharacter(Character newCharacter)
         {
+
+            var serviceRes =  new ServiceResponse<List<Character>>();
+
             characters.Add(newCharacter);
-            return characters;
+
+            serviceRes.Data = characters;
+
+            return serviceRes;
         }
 
     }

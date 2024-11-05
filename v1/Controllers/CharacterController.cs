@@ -26,19 +26,19 @@ namespace dnet_rpg.v1.Controllers
         }
 
         [HttpGet("characters")]
-        public async Task<ActionResult<List<Character>>> GetCharacters()
+        public async Task<ActionResult<ServiceResponse<List<Character>>>> GetCharacters()
         {
             return Ok(await _characterService.GetCharacters());
         }
 
         [HttpGet("character/{id}")]
-        public async Task<ActionResult<Character>> GetCharacter(int id)
+        public async Task<ActionResult<ServiceResponse<Character>>> GetCharacter(int id)
         {
             return Ok(await _characterService.GetCharacter(id));
         }
 
         [HttpPost("characters")]
-        public async Task<ActionResult<List<Character>>> CreateCharacter (Character newCharacter) {
+        public async Task<ActionResult<ServiceResponse<List<Character>>>> CreateCharacter (Character newCharacter) {
             characters.Add(newCharacter);
 
             return Ok(await _characterService.CreateCharacter(newCharacter));
