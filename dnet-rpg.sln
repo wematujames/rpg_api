@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dnet-rpg", "dnet-rpg.csproj", "{29007584-6BCA-410C-B160-C4E938BFDFA0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{29007584-6BCA-410C-B160-C4E938BFDFA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29007584-6BCA-410C-B160-C4E938BFDFA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29007584-6BCA-410C-B160-C4E938BFDFA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29007584-6BCA-410C-B160-C4E938BFDFA0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6104AA5D-C509-4406-AAF5-F8106B59BDE5}
+	EndGlobalSection
+EndGlobal
