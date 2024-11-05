@@ -1,13 +1,11 @@
 global using dnet_rpg.Models;
 global using dnet_rpg.v1.Services.CharacterService;
-
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<ICharacterService, CharacterService>();
 
 var app = builder.Build();
 

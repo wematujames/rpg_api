@@ -8,17 +8,12 @@ namespace dnet_rpg.v1.Services.CharacterService
     public class CharacterService : ICharacterService
     {
         private static Character knight = new Character();
+        
         private static List<Character> characters = new List<Character>(){
             new Character(),
             new Character {Id = 1, Name = "Sam" },
             new Character {Id = 2, Name = "Doe"},
         };
-        private readonly ICharacterService _characterService;
-
-        public CharacterService(ICharacterService characterService)
-        {
-            this._characterService = characterService;
-        }
 
         public List<Character> GetCharacters ()
         {
@@ -27,10 +22,14 @@ namespace dnet_rpg.v1.Services.CharacterService
 
         public Character GetCharacter(int id)
         {
-            return characters.FirstOrDefault(c => c.Id == id);
+            var character = characters.FirstOrDefault(c => c.Id == id);
+            
+            if (character != null) return character;
+            
+            throw new Exception("Character not found");
         }
 
-        public List<Character> CreateCharater(Character newCharacter)
+        public List<Character> CreateCharacter(Character newCharacter)
         {
             characters.Add(newCharacter);
             return characters;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace dnet_rpg.Controllers
+namespace dnet_rpg.v1.Controllers
 {
     [ApiController]
     [Route("api/v1")]
