@@ -12,12 +12,7 @@ namespace dnet_rpg.v1.Controllers
     [Route("api/v1/")]
     public class CharacterController : ControllerBase
     {
-        private static Character knight = new Character();
-        private static List<Character> characters = new List<Character>(){
-            new Character(),
-            new Character {Id = 1, Name = "Sam" },
-            new Character {Id = 2, Name = "Doe"},
-        };
+        
         private readonly ICharacterService _characterService;
 
         public CharacterController(ICharacterService characterService)
@@ -26,22 +21,29 @@ namespace dnet_rpg.v1.Controllers
         }
 
         [HttpGet("characters")]
-        public async Task<ActionResult<ServiceResponse<List<Character>>>> GetCharacters()
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDTO>>>> GetCharacters()
         {
             return Ok(await _characterService.GetCharacters());
         }
 
         [HttpGet("character/{id}")]
-        public async Task<ActionResult<ServiceResponse<Character>>> GetCharacter(int id)
+        public async Task<ActionResult<ServiceResponse<GetCharacterDTO>>> GetCharacter(int id)
         {
             return Ok(await _characterService.GetCharacter(id));
         }
 
         [HttpPost("characters")]
-        public async Task<ActionResult<ServiceResponse<List<Character>>>> CreateCharacter (Character newCharacter) {
-            characters.Add(newCharacter);
-
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDTO>>>> CreateCharacter (CreateCharacterDTO newCharacter) {
             return Ok(await _characterService.CreateCharacter(newCharacter));
+        }
+
+        [HttpPut("characters")]
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDTO>>>> UpdateCharacter (UpdateCharacterDTO updatedCharacter) {
+            var response = await _characterService.UpdateCharacter(updatedCharacter);
+            
+            if (response.Data is null) return NotFound();
+
+            return Ok(response);
         }
     }
 }
