@@ -45,5 +45,14 @@ namespace dnet_rpg.v1.Controllers
 
             return Ok(response);
         }
+
+        [HttpDelete("characters")]
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDTO>>>> DeleteCharacter (int id) {
+            var response = await _characterService.DeleteCharacter(id);
+            
+            if (response.Data is null) return NotFound();
+
+            return Ok(response);
+        }
     }
 }

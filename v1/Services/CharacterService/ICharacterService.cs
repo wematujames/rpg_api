@@ -12,5 +12,6 @@ namespace dnet_rpg.v1.Services.CharacterService
        Task<ServiceResponse<GetCharacterDTO>> GetCharacter (int id);
        Task<ServiceResponse<List<GetCharacterDTO>>> CreateCharacter (CreateCharacterDTO newCharater); 
        Task<ServiceResponse<GetCharacterDTO>> UpdateCharacter (UpdateCharacterDTO updatedCharater); 
+       Task<ServiceResponse<GetCharacterDTO>> DeleteCharacter (int id); 
     }
 }

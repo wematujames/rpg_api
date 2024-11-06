@@ -87,5 +87,27 @@ namespace dnet_rpg.v1.Services.CharacterService
                 return serviceRes;
             }
         }
+
+        public async Task<ServiceResponse<GetCharacterDTO>> DeleteCharacter(int id)
+        {
+            var serviceRes = new ServiceResponse<GetCharacterDTO>();
+
+            try
+            {
+                var character = characters.First(c => c.Id == id);
+                
+                characters.Remove(character);
+                
+                serviceRes.Data = _mapper.Map<GetCharacterDTO>(character);
+    
+                return serviceRes;
+            }
+            catch (Exception ex)
+            {
+                serviceRes.Success = false;
+                serviceRes.Message = ex.Message ?? "An error occured";
+                return serviceRes;
+            }
+        }
     }
 }
