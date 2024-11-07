@@ -11,7 +11,7 @@ using dnet_rpg.Data;
 namespace dnet_rpg.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241107084410_init")]
+    [Migration("20241107084716_init")]
     partial class init
     {
         /// <inheritdoc />
