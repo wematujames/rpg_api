@@ -10,13 +10,15 @@ namespace dnet_rpg.v1.Services.CharacterService
     {
         private static Character knight = new Character();
         private readonly IMapper _mapper;
+        private readonly DataContext _context;
         
-        public CharacterService(IMapper mapper)
+        public CharacterService(IMapper mapper, DataContext context)
         {
-            this._mapper = mapper;
+            _context = context;
+            _mapper = mapper;
         }
 
-        private static List<Character> characters = new List<Character>(){
+        private static readonly List<Character> characters = new List<Character>(){
             new Character(),
             new Character {Id = 1, Name = "Sam" },
             new Character {Id = 2, Name = "Doe"},
@@ -24,8 +26,11 @@ namespace dnet_rpg.v1.Services.CharacterService
 
         public async Task<ServiceResponse<List<GetCharacterDTO>>> GetCharacters ()
         {
-            var serviceRes = new ServiceResponse<List<GetCharacterDTO>>();
             
+            var serviceRes = new ServiceResponse<List<GetCharacterDTO>>();
+
+            var characters = await _context.Characters.ToListAsync();
+
             serviceRes.Data = characters.Select(c => _mapper.Map<GetCharacterDTO>(c)).ToList();
 
             return serviceRes; 
@@ -35,7 +40,7 @@ namespace dnet_rpg.v1.Services.CharacterService
         {
             var serviceRes = new ServiceResponse<GetCharacterDTO>();
 
-            var character = characters.FirstOrDefault(c => c.Id == id);
+            var character = await _context.Characters.FirstOrDefaultAsync(c => c.Id == id);
             
             serviceRes.Data = _mapper.Map<GetCharacterDTO>(character);
 
@@ -53,11 +58,12 @@ namespace dnet_rpg.v1.Services.CharacterService
         {
             var serviceRes =  new ServiceResponse<List<GetCharacterDTO>>();
             var character = _mapper.Map<Character>(newCharacter);
-            character.Id = characters.Max(c => c.Id) + 1;
 
-            characters.Add(character);
+            _context.Characters.Add(character);
 
-            serviceRes.Data = characters.Select(c => _mapper.Map<GetCharacterDTO>(c)).ToList();
+            await _context.SaveChangesAsync();
+
+            serviceRes.Data = _context.Characters.Select(c => _mapper.Map<GetCharacterDTO>(c)).ToList();
 
             return serviceRes;
         }
@@ -68,7 +74,7 @@ namespace dnet_rpg.v1.Services.CharacterService
 
             try
             {
-                var character = characters.FirstOrDefault(c => c.Id == updatedCharater.Id) ?? throw new Exception("Character not found");
+                var character = _context.Characters.FirstOrDefault(c => c.Id == updatedCharater.Id) ?? throw new Exception("Character not found");
                 character.Name = updatedCharater.Name;
                 character.HitPoints = updatedCharater.HitPoints;
                 character.Strength = updatedCharater.Strength;
@@ -77,7 +83,9 @@ namespace dnet_rpg.v1.Services.CharacterService
                 character.Class = updatedCharater.Class;
     
                 serviceRes.Data = _mapper.Map<GetCharacterDTO>(character);
-    
+                
+                await _context.SaveChangesAsync();
+
                 return serviceRes;
             }
             catch (Exception ex)
@@ -94,9 +102,13 @@ namespace dnet_rpg.v1.Services.CharacterService
 
             try
             {
-                var character = characters.First(c => c.Id == id);
+                var character = await _context.Characters.FirstOrDefaultAsync(c => c.Id == id);
                 
-                characters.Remove(character);
+                if (character is null) throw new Exception($"Character with id: {id} not found");
+
+                _context.Characters.Remove(character);
+
+                await _context.SaveChangesAsync();
                 
                 serviceRes.Data = _mapper.Map<GetCharacterDTO>(character);
     
